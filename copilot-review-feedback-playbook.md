@@ -56,7 +56,17 @@ agent: agent
 
 - The `gh` CLI is installed and authenticated with access to the repo. In SAML SSO organizations, the token must be authorized for the org. For GitHub Enterprise Server or GHE.com, log in with `gh auth login --hostname <host>`.
 - The PR branch is checked out with a clean working tree, and the terminal is at the repo root. In a repo with several remotes (for example, a fork), run `gh repo set-default` once so `gh` resolves `{owner}/{repo}` correctly.
-- A strong reasoning model. Smaller models tend to skip the sweep and self-review steps.
+- A capable coding model. See "Model choice" below.
+
+**Model choice:**
+
+- Any strong coding model works. The model matters less than whether it carries out every step.
+- Steps 1 (verify and triage) and 5 (self-review) depend on the model most. Use a higher reasoning or thinking setting if your model picker offers one. Steps 2–4 are mechanical.
+- With strong coding models, the likelier failure is doing too much, not too little. Steps 3 and 7 guard against that regardless of model.
+- You can't choose the model behind Copilot code review (only Lite or Balanced effort), so don't try to match it. The closest local stand-in is VS Code's review of uncommitted changes (section 5, item 3).
+- Use the Step 8 report to see whether the model is falling short. Warning signs: no instance count per rule, declines without evidence, no self-review result, or claims that checks passed without the commands' output. If these keep appearing, try a stronger model or a higher reasoning setting on the same PR. Compare how many new High or Medium findings the next round raises about code changed in the previous round.
+- A skill runs on whatever model is selected in the chat model picker. To lock a model for this workflow, use Option B and add a `model:` line to the prompt file's frontmatter; skills don't support that field.
+- You can only choose from the models your organization enables for Copilot Chat, and larger models cost more per request. This workflow makes many tool calls, so stay on your usual model unless the report shows skipped steps.
 
 ---
 
