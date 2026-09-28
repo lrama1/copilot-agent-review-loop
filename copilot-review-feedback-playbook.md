@@ -7,6 +7,8 @@ This playbook has two parts:
 
 Fewer rounds also cost less: every Copilot review consumes AI credits and GitHub Actions minutes.
 
+The reviewer's side, for reviewing colleagues' PRs, is covered in [pr-reviewer-playbook.md](pr-reviewer-playbook.md).
+
 ---
 
 ## 1. Why the loop happens
@@ -394,8 +396,9 @@ Produce:
 
 ## Step 9 - After approval (do each action only when the user asks)
 
-Write any text you post to a temporary file outside the repo, to avoid shell-quoting problems
-and accidental commits. Then, in this order:
+Write any text you post to a temporary UTF-8 file outside the repo, using your file-editing tool
+rather than shell redirection (Windows PowerShell 5.1 redirection writes UTF-16). This avoids
+shell-quoting problems and accidental commits. Then, in this order:
 1. Add the approved REVIEW.md entries to the working tree so they ship in the same commit (the
    reviewer reads instructions from the head branch).
 2. Commit the round as one commit with the suggested message, then push.
